@@ -296,6 +296,47 @@ body {
     font-weight: 700;
 }
 
+.about-section {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.about-icon {
+    color: #74a67b;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.about-section h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    letter-spacing: -2px;
+    line-height: 1.3;
+}
+
+.about-section h2 span {
+    color: #76a17b;
+}
+
+.about-section p {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 20px auto 0;
+    line-height: 1.8;
+}
+
+footer {
+    padding: 30px 8%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+footer p, footer > span {
+    font-size: 12px;
+    color: var(--muted);
+}
 
 @media (max-width: 900px) {
     .hero-side {
@@ -357,5 +398,10 @@ body {
 
     .petition-grid {
         grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-wrap: wrap;
+        gap: 15px;
     }
 }
