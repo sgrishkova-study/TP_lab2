@@ -56,6 +56,76 @@
             </div>
         </div>
     </section>
+
+    <section class="petition-section" id="petitions">
+        <div class="section-heading">
+            <div>
+                <div class="tag"> Community initiatives </div>
+                <h2>Running petitions:</h2>
+            </div>
+
+            <p>
+                See the ongoing petitions for your community.
+            </p>
+        </div>
+
+        <div class="petition-grid">
+            {% for petition in petitions %}
+
+            <article class="petition-card">
+                <div class="card-top">
+                    <span class="category {{petition.color}}">
+                        {{petition.category}}
+                    </span>
+
+                    <span class="card-arrow">-></span>
+                </div>
+
+                <h3>{{petition.title}}</h3>
+
+                <p class="card-description">
+                    {{petition.description}}
+                </p>
+
+                <div class="signature-info">
+                    <strong>{{petition.signatures}}</strong>
+                    <span>of {{petition.goal}} signatures</span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill {{petition.color}}">
+                    </div>
+                </div>
+
+                <div class="card-bottom">
+                    <span>{{(petition.signatures / petition.goal * 100)|int}}% of goal</span>
+                    <a href="#" class="sign-link"> Support this cause -> </a>
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-icon">*</div>
+
+        <h2> How does one petition get big?<br>
+            <span>Every 100000 is made of lots of 1-s! Every petition had to start somewhere.</span>
+        </h2>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+    </section>
+
+    <footer>
+        <a href="/" class="logo">make<span>choice.</span></a>
+        <p>Made to help people who care.</p>
+    </footer>
 </body>
 
 </html>

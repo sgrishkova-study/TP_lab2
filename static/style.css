@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
 :root {
-    --background: #f7f8f4
-    --dark: #1d2b21
-    --green: #467653
-    --white: #ffffff
+    --background: #f7f8f4;
+    --dark: #1d2b21;
+    --green: #467653;
+    --white: #ffffff;
+    --muted: #7c877d;
+    --border: #e6e9e1;
 }
 
 * {
@@ -159,10 +161,200 @@ body {
     font-size: 12px;
 }
 
+.petition-section {
+    padding:75px 8%;
+    background: #fff;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 45px;
+}
+
+.section-heading h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 48px;
+    letter-spacing: -2.5px;
+    line-height: 1.15;
+    margin-top: 18px;
+}
+
+.section-heading > p {
+    max-width: 300px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    padding-bottom: 8px;
+}
+
+.petition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.petition-card {
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 26px;
+    transition: 0.25s;
+    background: white;
+}
+
+.petition-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(28, 47, 31, 0.06);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+
+.category.green {
+    background: #f8f2e8;
+    color: #4b8053;
+}
+
+.card-arrow {
+    color: #89968b;
+    font-size: 19px;
+}
+
+.petition-card h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 23px;
+    line-height: 1.3;
+    letter-spacing: -0.7px;
+    margin: 25px 0 12px;
+    min-height: 60px;
+}
+
+.card-description {
+    color: #7a857c;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 72px;
+}
+
+.signature-info {
+    margin-top: 28px;
+    margin-bottom: 12px;
+}
+
+.signature-info strong {
+    font-family: 'Manrope', sans-serif;
+    font-size: 23px;
+}
+
+.signature-info span {
+    color: #89938a;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 7px;
+    background: #edf0eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.progress-fill.green {
+    background: #70a879;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 17px;
+    font-size:11px;
+    color: #89938a;
+}
+
+.sign-link {
+    text-decoration: none;
+    color: #3d6546;
+    font-weight: 700;
+}
+
+.about-section {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.about-icon {
+    color: #74a67b;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.about-section h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    letter-spacing: -2px;
+    line-height: 1.3;
+}
+
+.about-section h2 span {
+    color: #76a17b;
+}
+
+.about-section p {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 20px auto 0;
+    line-height: 1.8;
+}
+
+footer {
+    padding: 30px 8%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+footer p, footer > span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
 @media (max-width: 900px) {
     .hero-side {
         width: 190px;
         height: 190px;
+    }
+
+    .petition-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-side {
+        width: 190px;
+        height: 190px;
+    }
+
+    .section-heading {
+        gap: 30px;
     }
 }
 
@@ -187,5 +379,29 @@ body {
     .hero-side {
         display: none;
     }
-    
+
+    .petition-section {
+        padding: 55px 6%;
+    }
+
+    .section-heading {
+        display: block;
+    }
+
+    .section-heading h2 {
+        font-size: 40px;
+    }
+
+    .section-heading > p {
+        margin-top: 20px;
+    }
+
+    .petition-grid {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 }
