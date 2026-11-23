@@ -59,5 +59,26 @@ def create_petition():
     
     return render_template("create_petition.html")
 
+
+@app.route("/delete/<int:petition_id>", methods=["POST"])
+def delete_petition(petition_id):
+    db = get_db()
+
+    db.execute(
+        "DELETE FROM signatures WHERE petition_id = ?",
+        (petition_id,)
+    )
+
+    db.execute(
+        "DELETE FROM petitions WHERE id = ?",
+        (petition_id,)
+    )
+
+    db.commit()
+    db.close()
+
+    return redirect(url_for("home_page"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

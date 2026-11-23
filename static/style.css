@@ -385,6 +385,22 @@ footer > span {
     background: var(--green-hover);
 }
 
+.delete-button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    border: 1px solid #e6e9e1;
+    border-radius: 6px;
+    background: white;
+    color: #a34b4b;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background: #f9eeee;
+}
+
 @media (max-width: 900px) {
     .hero-side {
         width: 190px;

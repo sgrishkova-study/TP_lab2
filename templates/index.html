@@ -135,6 +135,16 @@
                                 <span>{{ progress }}% of goal</span>
                             </div>
 
+                            
+                            <form method="POST"
+                                action="{{ url_for('delete_petition', petition_id=petition.id) }}">
+
+                                <button type="submit" class="delete-button">
+                                    Delete petition
+                                </button>
+
+                            </form>
+
                         </article>
 
                     {% endfor %}
