@@ -338,6 +338,45 @@ footer p, footer > span {
     color: var(--muted);
 }
 
+
+.create-container {
+    max-width: 600px;
+    margin: 70px auto;
+    padding: 30px;
+}
+
+.create-container h1 {
+    margin-bottom: 30px;
+    font-family: 'Manrope', sans-serif;
+}
+
+.create-container label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: 600;
+}
+
+.create-container input,
+.create-container textarea,
+.create-container select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-family: inherit;
+}
+
+.create-container button {
+    width: 100%;
+    margin: 25px 0;
+    padding: 14px;
+    border: none;
+    border-radius: 7px;
+    background: var(--green);
+    color: white;
+    cursor: pointer;
+}
+
 @media (max-width: 900px) {
     .hero-side {
         width: 190px;
