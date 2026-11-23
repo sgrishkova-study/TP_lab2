@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,131 +6,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title> MakeAChange - Create a future you want! </title>
+    <title>MakeAChange - Create a future you want!</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <nav class="navigation_bar">
+
         <a href="/" class="logo">
-            make
-            <span>
-            choice.
-            </span>
+            make<span>choice.</span>
         </a>
 
         <div class="navigation_links">
-            <a href="#petitions">
-                Explore petitions
-            </a>
-            
-            <a href="#about">
-                About
-            </a>
+            <a href="#petitions">Explore petitions</a>
+            <a href="#about">About</a>
         </div>
 
-        <a href="#petitons" class="navigation_button">
-            Details...
+        <a href="{{ url_for('create_petition') }}"
+           class="navigation_button">
+            Create petition
         </a>
+
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="tag">
-                <span class="dot"></span>
-                Every sign matters!
-            </div>
+    <main>
 
-            <h1>As the saying goes, change starts with <span>you</span>!</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <section class="hero">
 
-            <a href="#petitions" class="primary-button">
-                See petitions...
-            </a>
+            <div class="hero-content">
 
-            <a href="{{url_for('create_petition')}}" class="primary-button">
-                Create a petition
-            </a>
-        </div>
-
-        <div class="hero-side">
-            <div class="hero-stats">
-                <span class="stats-number">300</span>
-                <span class="stats-label">petitions achived their goals!</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="petition-section" id="petitions">
-        <div class="section-heading">
-            <div>
-                <div class="tag"> Community initiatives </div>
-                <h2>Running petitions:</h2>
-            </div>
-
-            <p>
-                See the ongoing petitions for your community.
-            </p>
-        </div>
-
-        <div class="petition-grid">
-            {% for petition in petitions %}
-
-            <article class="petition-card">
-                <div class="card-top">
-                    <span class="category {{petition.color}}">
-                        {{petition.category}}
-                    </span>
-
-                    <span class="card-arrow">-></span>
+                <div class="tag">
+                    <span class="dot"></span>
+                    Every sign matters!
                 </div>
 
-                <h3>{{petition.title}}</h3>
+                <h1>
+                    Change starts with <span>you</span>!
+                </h1>
 
-                <p class="card-description">
-                    {{petition.description}}
+                <p>
+                    Discover causes that matter to your community
+                    and make your voice heard.
                 </p>
 
-                <div class="signature-info">
-                    <strong>{{petition.signatures}}</strong>
-                    <span>of {{petition.goal}} signatures</span>
+                <a href="#petitions" class="primary-button">
+                    Explore petitions →
+                </a>
+
+            </div>
+
+            <div class="hero-side">
+                <div class="hero-stats">
+                    <span class="stats-number">1</span>
+                    <span class="stats-label">
+                        voice can start change
+                    </span>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="petition-section" id="petitions">
+
+            <div class="section-heading">
+
+                <div>
+                    <div class="tag">Community initiatives</div>
+                    <h2>Running petitions:</h2>
                 </div>
 
-                <div class="progress-track">
-                    <div class="progress-fill {{petition.color}}">
-                    </div>
-                </div>
+                <p>
+                    See the ongoing petitions for your community.
+                </p>
 
-                <div class="card-bottom">
-                    <span>{{(petition.signatures / petition.goal * 100)|int}}% of goal</span>
-                    <a href="#" class="sign-link"> Support this cause -> </a>
-                </div>
+            </div>
 
-            </article>
 
-            {% endfor %}
+            <div class="petition-grid">
 
-        </div>
+                {% if petitions %}
 
-    </section>
+                    {% for petition in petitions %}
 
-    <section class="about-section" id="about">
-        <div class="about-icon">*</div>
+                        {% set progress = ((petition.signatures / petition.goal) * 100)|int if petition.goal > 0 else 0 %}
 
-        <h2> How does one petition get big?<br>
-            <span>Every 100000 is made of lots of 1-s! Every petition had to start somewhere.</span>
-        </h2>
+                        <article class="petition-card">
 
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-    </section>
+                            <div class="card-top">
+
+                                <span class="category green">
+                                    {{ petition.category }}
+                                </span>
+
+                                <span class="card-arrow">→</span>
+
+                            </div>
+
+                            <h3>{{ petition.title }}</h3>
+
+                            <p class="card-description">
+                                {{ petition.description }}
+                            </p>
+
+                            <div class="signature-info">
+
+                                <strong>{{ petition.signatures }}</strong>
+
+                                <span>
+                                    of {{ petition.goal }} signatures
+                                </span>
+
+                            </div>
+
+                            {% set progress = ((petition.signatures / petition.goal) * 100)|int if petition.goal > 0 else 0 %}
+                            {% set progress_width = progress if progress < 100 else 100 %}
+
+                            <div class="progress-track">
+
+                                <div class="progress-fill green"
+                                     style="width: {{ [progress, 100]|min }}%;">
+                                </div>
+
+                            </div>
+
+                            <div class="card-bottom">
+                                <span>{{ progress }}% of goal</span>
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No petitions yet. Be the first to create one!
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        <section class="about-section" id="about">
+
+            <div class="about-icon">*</div>
+
+            <h2>
+                How does one petition get big?<br>
+                <span>
+                    Every petition starts with one signature.
+                </span>
+            </h2>
+
+            <p>
+                Change doesn't happen overnight.
+                It starts when people come together
+                around something they believe in.
+            </p>
+
+        </section>
+
+    </main>
 
     <footer>
-        <a href="/" class="logo">make<span>choice.</span></a>
-        <p>Made to help people who care.</p>
-    </footer>
-</body>
 
+        <a href="/" class="logo">
+            make<span>choice.</span>
+        </a>
+
+        <p>Made to help people who care.</p>
+
+    </footer>
+
+</body>
 </html>

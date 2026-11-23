@@ -1,56 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title> Create Petition </title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-    </head>
+    <title>Create Petition</title>
 
-    <body>
-        <main class="create-container">
-            <h1>Create a petition</h1>
-            
-            <form method="POST">
-                <label for="title"> Petition title</label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                >
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
 
-                <label for="description">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    rows="5"
-                    required
-                ></textarea>
+<body>
 
-                <label for="category">Category</label>
-                <select id="category" name="category" required>
-                    <option value="">Select a category</option>
-                    <option value="ENVIRONMENT">Environment</option>
-                </select>
-                
-                <label for="goal">Signature goal</label>
-                <input
-                    type="number"
-                    id="goal"
-                    name="goal"
-                    value="1000"
-                    min="1"
-                    max="1000000"
-                    required
-                >
+    <main class="create-container">
 
-                <button type="submit">Create petition</button>
-            </form>
+        <h1>Create a petition</h1>
 
-            <a href="/">Back to homepage</a>
-        </main>
-    </body>
+        <form method="POST"
+              action="{{ url_for('create_petition') }}">
+
+            <label for="title">Petition title</label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+                maxlength="120"
+                required
+            >
+
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="5"
+                maxlength="2000"
+                required
+            ></textarea>
+
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="ENVIRONMENT">Environment</option>
+            </select>
+
+            <label for="goal">Signature goal</label>
+            <input
+                type="number"
+                id="goal"
+                name="goal"
+                value="1000"
+                min="1"
+                max="1000000"
+                required
+            >
+
+            <button type="submit">Create petition</button>
+
+        </form>
+
+        <a href="/">Back to homepage</a>
+
+    </main>
+
+</body>
 </html>
