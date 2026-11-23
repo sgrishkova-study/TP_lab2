@@ -20,6 +20,16 @@ def init_db():
         )
     """)
 
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS signatures (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            petition_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            FOREIGN KEY (petition_id) REFERENCES petitions(id)
+        )
+    """)
+
     count = conn.execute(
         "SELECT COUNT(*) FROM petitions"
     ).fetchone()[0]
