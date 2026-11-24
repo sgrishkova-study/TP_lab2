@@ -88,7 +88,7 @@ def vulnerable_search():
 
     ### instead of using ? as a placeholder for data
     ### %{query}% goes straight into SQL query
-    
+
     sql = f"""
         SELECT id, title, description, category
         FROM petitions
@@ -101,7 +101,7 @@ def vulnerable_search():
     db.close()
 
     return render_template(
-        "lab_search.html",
+        "vulnerable_search.html",
         petitions=petitions,
         query=query
     )
