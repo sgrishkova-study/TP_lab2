@@ -1,15 +1,12 @@
 import sqlite3
 
-DB_NAME = "petitions.db"
-
-
-def get_db(db_name=DB_NAME):
+def get_db(db_name):
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
     return conn
 
 
-def init_db(db_name=DB_NAME):
+def init_db(db_name):
     conn = get_db(db_name)
 
     conn.execute("""
