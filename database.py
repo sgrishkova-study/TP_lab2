@@ -54,6 +54,10 @@ def init_db():
         "SELECT COUNT(*) FROM signatures"
     ).fetchone()[0]
 
+    signature_count = conn.execute(
+        "SELECT COUNT(*) FROM signatures"
+    ).fetchone()[0]
+    
     if signature_count == 0:
 
         petition_id = conn.execute(
