@@ -1,7 +1,64 @@
-from flask import Flask, render_template, request, redirect, url_for
+import hmac
+import os
+import secrets
+from functools import wraps
+from flask import Flask, redirect, render_template, request, session, url_for
 from database import get_db, init_db
 
 app = Flask(__name__)
+
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32)
+
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax"
+)
+
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
+
+def admin_required(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+
+        if not session.get("is_admin"):
+            return "Forbidden: administrator access required", 403
+
+        return view(*args, **kwargs)
+
+    return wrapped
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+
+    if not ADMIN_PASSWORD:
+        return "Administrator password is not configured", 503
+
+    if request.method == "POST":
+
+        password = request.form.get("password", "")
+
+        if hmac.compare_digest(
+            password.encode("utf-8"),
+            ADMIN_PASSWORD.encode("utf-8")
+        ):
+            session.clear()
+            session["is_admin"] = True
+
+            return redirect(url_for("home_page"))
+
+        return "Invalid password", 401
+
+    return render_template("admin_login.html")
+
+
+@app.route("/admin/logout", methods=["POST"])
+@admin_required
+def admin_logout():
+
+    session.clear()
+
+    return redirect(url_for("home_page"))
+
 
 init_db()
 
@@ -61,6 +118,7 @@ def create_petition():
 
 
 @app.route("/delete/<int:petition_id>", methods=["POST"])
+@admin_required
 def delete_petition(petition_id):
     db = get_db()
 
@@ -86,17 +144,14 @@ def vulnerable_search():
 
     db = get_db()
 
-    ### instead of using ? as a placeholder for data
-    ### %{query}% goes straight into SQL query
-
-    sql = f"""
+    sql = """
         SELECT id, title, description, category
         FROM petitions
-        WHERE title LIKE '%{query}%'
+        WHERE title LIKE ?
         ORDER BY id DESC
     """
 
-    petitions = db.execute(sql).fetchall()
+    petitions = db.execute(sql,(f"%{query}%",)).fetchall()
 
     db.close()
 
@@ -108,4 +163,4 @@ def vulnerable_search():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

@@ -41,6 +41,12 @@ def init_db():
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
                 "ENVIRONMENT",
                 1100
+            ),
+            (
+                "BAC_DELETE_TEST",
+                "Disposable security testing record",
+                "ENVIRONMENT",
+                10
             )
         ]
 
