@@ -1,0 +1,108 @@
+diff --git a/web.py b/web.py
+--- a/web.py
++++ b/web.py
+@@ -6,2 +6,2 @@
+-DB_NAME = "database.db"
++DB_NAME = "secure_database.db"
+ init_db(DB_NAME)
+diff --git a/crypto_utils.py b/crypto_utils.py
+new file mode 100644
+--- /dev/null
++++ b/crypto_utils.py
+@@ -0,0 +1,26 @@
++from pathlib import Path
++from cryptography.fernet import Fernet
++
++BASE_DIR = Path(__file__).resolve().parent
++KEY_PATH = BASE_DIR / "signature.key"
++
++if not KEY_PATH.is_file():
++    raise RuntimeError(
++        "Encryption key not found. Generate signature.key before using encryption."
++    )
++
++cipher = Fernet(KEY_PATH.read_bytes())
++
++
++def encrypt_data(value: str) -> str:
++    if not isinstance(value, str):
++        raise TypeError("encrypt_data expects a string")
++    return cipher.encrypt(value.encode("utf-8")).decode("ascii")
++
++
++def decrypt_data(token: str) -> str:
++    if not isinstance(token, str):
++        raise TypeError("decrypt_data expects a string")
++    return cipher.decrypt(token.encode("ascii")).decode("utf-8")
+diff --git a/encrypt_signatures.py b/encrypt_signatures.py
+new file mode 100644
+--- /dev/null
++++ b/encrypt_signatures.py
+@@ -0,0 +1,68 @@
++from pathlib import Path
++import shutil
++import sqlite3
++
++from crypto_utils import encrypt_data
++
++BASE_DIR = Path(__file__).resolve().parent
++SOURCE_DB = BASE_DIR / "database.db"
++SECURE_DB = BASE_DIR / "secure_database.db"
++MIGRATION_NAME = "encrypt_signatures_v1"
++
++
++def main():
++    if not SECURE_DB.exists():
++        if not SOURCE_DB.is_file():
++            raise FileNotFoundError(f"Source database not found: {SOURCE_DB}")
++        shutil.copy2(SOURCE_DB, SECURE_DB)
++
++    db = sqlite3.connect(SECURE_DB)
++
++    try:
++        db.execute("""
++            CREATE TABLE IF NOT EXISTS migrations (
++                name TEXT PRIMARY KEY
++            )
++        """)
++
++        completed = db.execute(
++            "SELECT 1 FROM migrations WHERE name = ?",
++            (MIGRATION_NAME,)
++        ).fetchone()
++
++        if completed:
++            print("Signature encryption migration was already completed.")
++            return
++
++        signatures = db.execute(
++            "SELECT id, name, email FROM signatures"
++        ).fetchall()
++
++        for signature_id, name, email in signatures:
++            db.execute("""
++                UPDATE signatures
++                SET name = ?, email = ?
++                WHERE id = ?
++            """, (
++                encrypt_data(name),
++                encrypt_data(email),
++                signature_id
++            ))
++
++        db.execute(
++            "INSERT INTO migrations (name) VALUES (?)",
++            (MIGRATION_NAME,)
++        )
++        db.commit()
++        print(f"Encrypted {len(signatures)} signature records.")
++
++    except Exception:
++        db.rollback()
++        raise
++    finally:
++        db.close()
++
++
++if __name__ == "__main__":
++    main()

@@ -1,7 +1,10 @@
 diff --git a/web.py b/web.py
 --- a/web.py
 +++ b/web.py
-@@
+@@ -90,14 +90,14 @@
+     ### instead of using ? as a placeholder for data
+     ### %{query}% goes straight into SQL query
+ 
 -    sql = f"""
 +    sql = """
          SELECT id, title, description, category
@@ -12,7 +15,7 @@ diff --git a/web.py b/web.py
      """
  
 -    petitions = db.execute(sql).fetchall()
-+    petitions = db.execute(
-+        sql,
-+        (f"%{query}%",)
-+    ).fetchall()
++    petitions = db.execute(sql, (f"%{query}%",)).fetchall()
+ 
+     db.close()
+ 
