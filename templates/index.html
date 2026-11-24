@@ -29,6 +29,11 @@
             Create petition
         </a>
 
+        <a href="{{ url_for('vulnerable_search') }}" 
+            class="navigation_button">
+            Search petitions
+        </a>
+
     </nav>
 
     <main>
@@ -105,6 +110,8 @@
                             </div>
 
                             <h3>{{ petition.title }}</h3>
+
+                            <small>Petition ID: {{ petition.id }}</small>
 
                             <p class="card-description">
                                 {{ petition.description }}
