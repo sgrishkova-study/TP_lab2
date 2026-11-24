@@ -49,5 +49,32 @@ def init_db():
             VALUES (?, ?, ?, ?)
         """, demo_partitions)
 
+
+        signature_count = conn.execute(
+        "SELECT COUNT(*) FROM signatures"
+    ).fetchone()[0]
+
+    if signature_count == 0:
+
+        petition_id = conn.execute(
+            "SELECT id FROM petitions LIMIT 1"
+        ).fetchone()[0]
+
+        demo_signatures = [
+            ("Alex Morgan", "alex.morgan@example.test"),
+            ("Sophie Miller", "sophie.miller@example.test"),
+            ("Daniel Weber", "daniel.weber@example.test"),
+            ("Emma Taylor", "emma.taylor@example.test"),
+            ("Noah Fischer", "noah.fischer@example.test")
+        ]
+
+        conn.executemany("""
+            INSERT INTO signatures (petition_id, name, email)
+            VALUES (?, ?, ?)
+        """, [
+            (petition_id, name, email)
+            for name, email in demo_signatures
+        ])
+
     conn.commit()
     conn.close()
