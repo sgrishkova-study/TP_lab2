@@ -1,3 +1,4 @@
-petitions.db
 signature.key
 secure_database.db
+vulnerable_web.py
+database.db

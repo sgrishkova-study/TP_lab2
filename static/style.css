@@ -6,10 +6,15 @@
     --green: #467653;
     --green-hover: #345e3c;
     --green-light: #70a879;
+    --green-soft: #e8efe5;
     --white: #ffffff;
     --muted: #7c877d;
     --border: #e6e9e1;
+    --danger: #a34b4b;
+    --danger-soft: #f9eeee;
 }
+
+/* Base */
 
 * {
     margin: 0;
@@ -17,32 +22,55 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
     background: var(--background);
     color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
 }
 
+a {
+    color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+    outline: 3px solid var(--green-light);
+    outline-offset: 3px;
+}
+
+/* Navigation */
+
 .navigation_bar {
-    height: 82px;
+    min-height: 76px;
     padding: 0 8%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 24px;
     border-bottom: 1px solid var(--border);
+    background: var(--background);
 }
 
 .logo {
+    flex-shrink: 0;
+    color: var(--dark);
     font-family: 'Manrope', sans-serif;
     font-size: 25px;
     font-weight: 800;
-    color: var(--dark);
-    text-decoration: none;
     letter-spacing: -1px;
+    text-decoration: none;
 }
 
 .logo span {
@@ -51,7 +79,8 @@ body {
 
 .navigation_links {
     display: flex;
-    gap: 35px;
+    align-items: center;
+    gap: 28px;
 }
 
 .navigation_links a {
@@ -60,32 +89,43 @@ body {
     text-decoration: none;
 }
 
-.navigation_button {
-    padding: 12px 19px;
-    background: var(--dark);
-    color: var(--white);
-    border-radius: 8px;
-    font-size: 13px;
-    text-decoration: none;
+.navigation_links a:hover {
+    color: var(--green);
 }
 
+.navigation_button {
+    flex-shrink: 0;
+    padding: 11px 17px;
+    border-radius: 8px;
+    background: var(--dark);
+    color: var(--white);
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.navigation_button:hover {
+    background: var(--green);
+}
+
+/* Homepage hero */
+
 .hero {
-    min-height: 470px;
-    padding: 90px 8% 100px;
+    padding: 76px 8% 82px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 .hero-content {
-    max-width: 650px;
+    max-width: 680px;
 }
 
 .tag {
     color: var(--green);
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 .dot {
@@ -93,16 +133,16 @@ body {
     width: 8px;
     height: 8px;
     margin-right: 7px;
-    background: #79ad7e;
     border-radius: 50%;
+    background: #79ad7e;
 }
 
 .hero h1 {
-    margin: 25px 0;
+    margin: 20px 0;
     font-family: 'Manrope', sans-serif;
-    font-size: clamp(55px, 7vw, 88px);
-    line-height: 1.04;
-    letter-spacing: -5px;
+    font-size: clamp(44px, 6vw, 76px);
+    line-height: 1.08;
+    letter-spacing: -3.5px;
 }
 
 .hero h1 span {
@@ -110,121 +150,97 @@ body {
 }
 
 .hero-content > p {
-    max-width: 420px;
-    color: #758076;
+    max-width: 480px;
+    color: var(--muted);
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .primary-button {
     display: inline-block;
-    margin-top: 30px;
-    padding: 15px 23px;
+    margin-top: 25px;
+    padding: 14px 21px;
+    border-radius: 9px;
     background: var(--green);
     color: var(--white);
-    border-radius: 9px;
     font-size: 14px;
     text-decoration: none;
-    transition: 0.2s;
+    transition: background 0.2s, transform 0.2s;
 }
 
 .primary-button:hover {
-    background: var(--green-hover);
     transform: translateY(-2px);
+    background: var(--green-hover);
 }
 
-.hero-side {
-    width: 250px;
-    height: 250px;
-    margin-right: 4%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #e8efe5;
-    border-radius: 50%;
-}
-
-.hero-stats {
-    text-align: center;
-}
-
-.stats-number {
-    display: block;
-    font-family: 'Manrope', sans-serif;
-    font-size: 40px;
-    font-weight: 800;
-}
-
-.stats-label {
-    color: var(--muted);
-    font-size: 12px;
-}
+/* Petition list */
 
 .petition-section {
-    padding: 75px 8%;
+    padding: 58px 8% 72px;
     background: var(--white);
 }
 
 .section-heading {
     display: flex;
-    justify-content: space-between;
     align-items: end;
-    gap: 30px;
-    margin-bottom: 45px;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 34px;
 }
 
 .section-heading h2 {
-    margin-top: 18px;
+    margin-top: 12px;
     font-family: 'Manrope', sans-serif;
-    font-size: 48px;
+    font-size: clamp(32px, 4vw, 44px);
     line-height: 1.15;
-    letter-spacing: -2.5px;
+    letter-spacing: -2px;
 }
 
 .section-heading > p {
-    max-width: 300px;
-    padding-bottom: 8px;
+    max-width: 290px;
+    padding-bottom: 5px;
     color: var(--muted);
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .petition-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    gap: 20px;
 }
 
 .petition-card {
-    padding: 26px;
-    background: var(--white);
+    min-width: 0;
+    padding: 24px;
     border: 1px solid var(--border);
-    border-radius: 15px;
-    transition: 0.25s;
+    border-radius: 14px;
+    background: var(--white);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .petition-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(28, 47, 31, 0.06);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(28, 47, 31, 0.06);
 }
 
 .card-top {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .category {
-    padding: 8px 10px;
+    padding: 7px 9px;
     border-radius: 5px;
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 }
 
 .category.green {
-    background: #f8f2e8;
-    color: #4b8053;
+    background: #f1f5ef;
+    color: var(--green);
 }
 
 .card-arrow {
@@ -233,33 +249,33 @@ body {
 }
 
 .petition-card h3 {
-    min-height: 60px;
-    margin: 25px 0 12px;
+    margin: 20px 0 10px;
     font-family: 'Manrope', sans-serif;
-    font-size: 23px;
+    font-size: 21px;
     line-height: 1.3;
-    letter-spacing: -0.7px;
+    letter-spacing: -0.5px;
+    overflow-wrap: anywhere;
 }
 
 .card-description {
-    min-height: 72px;
-    color: #7a857c;
+    color: var(--muted);
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
 }
 
 .signature-info {
-    margin: 28px 0 12px;
+    margin: 22px 0 11px;
 }
 
 .signature-info strong {
     font-family: 'Manrope', sans-serif;
-    font-size: 23px;
+    font-size: 22px;
 }
 
 .signature-info span {
     margin-left: 5px;
-    color: #89938a;
+    color: var(--muted);
     font-size: 12px;
 }
 
@@ -267,8 +283,8 @@ body {
     width: 100%;
     height: 7px;
     overflow: hidden;
-    background: #edf0eb;
     border-radius: 20px;
+    background: #edf0eb;
 }
 
 .progress-fill {
@@ -282,76 +298,54 @@ body {
 
 .card-bottom {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 17px;
-    color: #89938a;
+    justify-content: space-between;
+    margin-top: 13px;
+    color: var(--muted);
     font-size: 11px;
 }
 
-.sign-link {
-    color: #3d6546;
-    font-weight: 700;
-    text-decoration: none;
-}
+/* Delete action */
 
-.about-section {
-    padding: 100px 20px;
-    text-align: center;
-}
-
-.about-icon {
-    margin-bottom: 20px;
-    color: #74a67b;
-    font-size: 35px;
-}
-
-.about-section h2 {
-    font-family: 'Manrope', sans-serif;
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1.3;
-    letter-spacing: -2px;
-}
-
-.about-section h2 span {
-    color: #76a17b;
-}
-
-.about-section p {
-    max-width: 500px;
-    margin: 20px auto 0;
-    color: var(--muted);
-    line-height: 1.8;
-}
-
-footer {
-    padding: 30px 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border);
-}
-
-footer p,
-footer > span {
-    color: var(--muted);
+.delete-button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--danger);
     font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
 }
+
+.delete-button:hover {
+    border-color: #efdada;
+    background: var(--danger-soft);
+}
+
+/* Create, search and admin forms */
 
 .create-container {
-    max-width: 600px;
-    margin: 70px auto;
+    width: min(100% - 40px, 600px);
+    margin: 56px auto;
     padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--white);
 }
 
 .create-container h1 {
-    margin-bottom: 30px;
+    margin-bottom: 26px;
     font-family: 'Manrope', sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
 }
 
 .create-container label {
     display: block;
-    margin: 15px 0 8px;
+    margin: 16px 0 8px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -359,95 +353,129 @@ footer > span {
 .create-container textarea,
 .create-container select {
     width: 100%;
-    padding: 12px;
+    padding: 12px 13px;
     border: 1px solid var(--border);
     border-radius: 7px;
+    background: #fafbf9;
+    color: var(--dark);
     font-family: inherit;
+    font-size: 14px;
 }
 
 .create-container textarea {
     resize: vertical;
 }
 
+.create-container input:focus,
+.create-container textarea:focus,
+.create-container select:focus {
+    outline: none;
+    border-color: var(--green);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(70, 118, 83, 0.1);
+}
+
 .create-container button {
     width: 100%;
-    margin: 25px 0;
-    padding: 14px;
-    border: none;
+    margin: 23px 0;
+    padding: 13px 15px;
+    border: 0;
     border-radius: 7px;
     background: var(--green);
     color: var(--white);
     font-family: inherit;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .create-container button:hover {
     background: var(--green-hover);
 }
 
-.delete-button {
-    margin-top: 15px;
-    padding: 8px 12px;
-    border: 1px solid #e6e9e1;
-    border-radius: 6px;
-    background: white;
-    color: #a34b4b;
-    font-family: inherit;
-    font-size: 12px;
-    cursor: pointer;
+.create-container > a {
+    color: var(--green);
+    font-size: 13px;
+    text-decoration: none;
 }
 
-.delete-button:hover {
-    background: #f9eeee;
+.create-container > a:hover {
+    text-decoration: underline;
 }
+
+/* Footer */
+
+footer {
+    padding: 24px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+}
+
+footer p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Responsive layout */
 
 @media (max-width: 900px) {
-    .hero-side {
-        width: 190px;
-        height: 190px;
-    }
-
     .petition-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .navigation_bar,
+    .hero,
+    .petition-section,
+    footer {
+        padding-right: 6%;
+        padding-left: 6%;
     }
 }
 
 @media (max-width: 650px) {
     .navigation_bar {
-        padding: 0 5%;
+        min-height: 70px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
     .navigation_links {
-        display: none;
+        order: 3;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .navigation_button {
+        margin-left: auto;
     }
 
     .hero {
-        padding: 65px 6%;
+        padding-top: 52px;
+        padding-bottom: 58px;
     }
 
     .hero h1 {
-        font-size: 58px;
-        letter-spacing: -3px;
-    }
-
-    .hero-side {
-        display: none;
+        font-size: clamp(42px, 11vw, 58px);
+        letter-spacing: -2.5px;
     }
 
     .petition-section {
-        padding: 55px 6%;
+        padding-top: 42px;
+        padding-bottom: 52px;
     }
 
     .section-heading {
         display: block;
-    }
-
-    .section-heading h2 {
-        font-size: 40px;
+        margin-bottom: 26px;
     }
 
     .section-heading > p {
-        margin-top: 20px;
+        margin-top: 12px;
     }
 
     .petition-grid {
@@ -455,12 +483,11 @@ footer > span {
     }
 
     .create-container {
-        margin-top: 35px;
-        padding: 20px;
+        margin-top: 32px;
+        padding: 24px 20px;
     }
 
     footer {
         flex-wrap: wrap;
-        gap: 15px;
     }
 }

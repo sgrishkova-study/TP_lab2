@@ -3,7 +3,7 @@ from database import get_db, init_db
 
 app = Flask(__name__)
 
-DB_NAME = "petitions.db"
+DB_NAME = "database.db"
 init_db(DB_NAME)
 
 @app.route("/")

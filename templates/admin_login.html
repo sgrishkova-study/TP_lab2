@@ -1,41 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Administrator Login</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>Administrator login | MakeAChange</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <nav class="navigation_bar">
+        <a href="{{ url_for('home_page') }}" class="logo">make<span>choice.</span></a>
+        <a href="{{ url_for('home_page') }}" class="navigation_button">Back home</a>
+    </nav>
 
     <main class="create-container">
-
         <h1>Administrator login</h1>
 
-        <form method="POST">
-
+        <form method="POST" action="{{ url_for('admin_login') }}">
             <label for="password">Password</label>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
-
+            <input type="password" id="password" name="password" autocomplete="current-password" required>
             <button type="submit">Log in</button>
-
         </form>
-
-        <a href="/">Back to homepage</a>
-
     </main>
-
 </body>
 </html>

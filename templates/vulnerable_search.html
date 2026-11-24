@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petition Search Lab</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>Search petitions | MakeAChange</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <nav class="navigation_bar">
+        <a href="{{ url_for('home_page') }}" class="logo">make<span>choice.</span></a>
+        <a href="{{ url_for('home_page') }}" class="navigation_button">Back home</a>
+    </nav>
 
     <main class="create-container">
-
         <h1>Search petitions</h1>
 
         <form method="GET" action="{{ url_for('vulnerable_search') }}">
-
             <label for="q">Search by title</label>
-
-            <input
-                type="search"
-                id="q"
-                name="q"
-                value="{{ query }}"
-                required
-            >
-
+            <input type="search" id="q" name="q" value="{{ query }}" required>
             <button type="submit">Search</button>
-
         </form>
 
         {% for petition in petitions %}
-
             <article class="petition-card">
-
                 <h3>{{ petition.title }}</h3>
-
-                <p>{{ petition.description }}</p>
-
+                <p class="card-description">{{ petition.description }}</p>
                 <span>{{ petition.category }}</span>
-
             </article>
-
         {% else %}
-
             <p>No petitions found.</p>
-
         {% endfor %}
-
-        <a href="/">Back to homepage</a>
-
     </main>
-
 </body>
 </html>

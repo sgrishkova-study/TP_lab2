@@ -1,43 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Create Petition</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>Create petition | MakeAChange</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <nav class="navigation_bar">
+        <a href="{{ url_for('home_page') }}" class="logo">make<span>choice.</span></a>
+        <a href="{{ url_for('home_page') }}" class="navigation_button">Back home</a>
+    </nav>
 
     <main class="create-container">
-
         <h1>Create a petition</h1>
 
-        <form method="POST"
-              action="{{ url_for('create_petition') }}">
-
+        <form method="POST" action="{{ url_for('create_petition') }}">
             <label for="title">Petition title</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                maxlength="120"
-                required
-            >
+            <input type="text" id="title" name="title" maxlength="120" required>
 
             <label for="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                rows="5"
-                maxlength="2000"
-                required
-            ></textarea>
+            <textarea id="description" name="description" rows="5" maxlength="2000" required></textarea>
 
             <label for="category">Category</label>
             <select id="category" name="category" required>
@@ -46,23 +29,10 @@
             </select>
 
             <label for="goal">Signature goal</label>
-            <input
-                type="number"
-                id="goal"
-                name="goal"
-                value="1000"
-                min="1"
-                max="1000000"
-                required
-            >
+            <input type="number" id="goal" name="goal" value="1000" min="1" max="1000000" required>
 
             <button type="submit">Create petition</button>
-
         </form>
-
-        <a href="/">Back to homepage</a>
-
     </main>
-
 </body>
 </html>
