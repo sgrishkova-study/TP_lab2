@@ -33,7 +33,7 @@ def create_petition():
             "ENVIRONMENT"
         }
 
-        ## нет ручек нет конфетки
+        ### нет ручек нет конфетки
         if not title or not description:
             return "Title and description are requered", 400
 
@@ -78,6 +78,33 @@ def delete_petition(petition_id):
     db.close()
 
     return redirect(url_for("home_page"))
+
+
+@app.route("/assignment/search")
+def vulnerable_search():
+    query = request.args.get("q", "")
+
+    db = get_db()
+
+    ### instead of using ? as a placeholder for data
+    ### %{query}% goes straight into SQL query
+    
+    sql = f"""
+        SELECT id, title, description, category
+        FROM petitions
+        WHERE title LIKE '%{query}%'
+        ORDER BY id DESC
+    """
+
+    petitions = db.execute(sql).fetchall()
+
+    db.close()
+
+    return render_template(
+        "lab_search.html",
+        petitions=petitions,
+        query=query
+    )
 
 
 if __name__ == "__main__":
