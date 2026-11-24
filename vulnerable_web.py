@@ -3,11 +3,12 @@ from database import get_db, init_db
 
 app = Flask(__name__)
 
-init_db()
+DB_NAME = "petitions.db"
+init_db(DB_NAME)
 
 @app.route("/")
 def home_page():
-    db = get_db()
+    db = get_db(DB_NAME)
 
     petitions = db.execute("""
         SELECT p.*, COUNT(s.id) AS signatures
@@ -45,7 +46,7 @@ def create_petition():
         except ValueError:
             return "Goal must be a number.", 400
 
-        db = get_db()
+        db = get_db(DB_NAME)
 
         db.execute("""
             INSERT INTO petitions (title, description, category, goal)
@@ -62,7 +63,7 @@ def create_petition():
 
 @app.route("/delete/<int:petition_id>", methods=["POST"])
 def delete_petition(petition_id):
-    db = get_db()
+    db = get_db(DB_NAME)
 
     db.execute(
         "DELETE FROM signatures WHERE petition_id = ?",
@@ -84,7 +85,7 @@ def delete_petition(petition_id):
 def vulnerable_search():
     query = request.args.get("q", "")
 
-    db = get_db()
+    db = get_db(DB_NAME)
 
     ### instead of using ? as a placeholder for data
     ### %{query}% goes straight into SQL query
